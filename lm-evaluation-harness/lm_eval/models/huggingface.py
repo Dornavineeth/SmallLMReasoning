@@ -97,7 +97,7 @@ class HFLM(LM):
         batch_size: Optional[Union[int, str]] = 1,
         max_batch_size: Optional[int] = 64,
         trust_remote_code: Optional[bool] = False,
-        use_fast_tokenizer: Optional[bool] = False,
+        use_fast_tokenizer: Optional[bool] = True,
         # arguments used for splitting a model across GPUs naively.
         # only used if `parallelize=True`.
         parallelize: Optional[bool] = False,
@@ -559,7 +559,7 @@ class HFLM(LM):
         ],
         revision: Optional[str] = "main",
         trust_remote_code: Optional[bool] = False,
-        use_fast_tokenizer: Optional[bool] = False,
+        use_fast_tokenizer: Optional[bool] = True,
     ) -> None:
         """
         Helper method during initialization.
