@@ -8,11 +8,12 @@ filter_list:
   - name: "get-answer"
     filter:
       - function: "regex"
-        regex_pattern: "(?<=The answer is )(.*)(?=\\.<\\|endoftext\\|>$)" # default (?=.)
+        regex_pattern: "(?<=The answer is )(.*)(?=.)" #(?=\\.<\\|endoftext\\|>$) # default (?=.)
       - function: "take_first"
 generation_kwargs:
   until:
     - "</s>"
+    - "<|endoftext|" # To prevent invalid parsing of answer
   do_sample: false
   temperature: 0.0
 num_fewshot: 0
