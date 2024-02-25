@@ -1,5 +1,5 @@
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate, ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel
 from langchain_core.runnables import RunnablePassthrough
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
@@ -20,11 +20,11 @@ HUGGING_FACE_MODELS = {
 
 model_id = HUGGING_FACE_MODELS['phi']
 
-model = AutoModelForCausalLM.from_pretrained(model_id, device_map = 'auto')
-tokenizer = AutoTokenizer.from_pretrained(model_id)
+# model = AutoModelForCausalLM.from_pretrained(model_id, device_map = 'auto')
+# tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_length = 2048)
-hf = HuggingFacePipeline(pipeline=pipe)
+# pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_length = 2048)
+# hf = HuggingFacePipeline(pipeline=pipe)
 
 skeleton_generator_template = """[User:] You’re an organizer responsible for only \
 giving the skeleton (not the full content) for answering the question.
@@ -41,89 +41,101 @@ skeleton_generator_prompt = ChatPromptTemplate.from_template(
     skeleton_generator_template
 )
 
-skeleton_generator_chain = (
-    skeleton_generator_prompt | hf | StrOutputParser() | (lambda x: "1. " + x)
-)
+# skeleton_generator_template = """You're an organizer responsible for only giving the skeleton \
+#     (not the full content) for answering the question. Provide the skeleton in a list of points\
+#           (numbered 1., 2., 3., etc.) to answer the question. Instead of writing a full sentence,\
+#               each skeleton point should be very short with only 3~5 words. Generally, the skeleton\
+#                   should have 3~10 points. Now, please provide the skeleton for the following question.\
+#                     \n{question}\nSkeleton:\n\nPlease start your answer from \"1. \" and \
+#                     do not output other things before that"""
 
-skeleton = skeleton_generator_chain.invoke({"question":"How to cook scrambled eggs"})
+# skeleton_generator_prompt = PromptTemplate.from_template(skeleton_generator_template)
 
-point_expander_template = """[User:] You’re responsible for continuing \
-the writing of one and only one point in the overall answer to the following question.
-{question}
-The skeleton of the answer is
-{skeleton}
-Continue and only continue the writing of point {point_index}. \
-Write it **very shortly** in 1∼2 sentence and do not continue with other points!
-[Assistant:] {point_index}. {point_skeleton}"""
+# skeleton_generator_chain = (
+#     skeleton_generator_prompt | hf | StrOutputParser() | (lambda x: "1. " + x)
+# )
 
-point_expander_prompt = ChatPromptTemplate.from_template(point_expander_template)
+print(skeleton_generator_prompt.invoke({"question":"Josh decides to try flipping a house.  He buys a house for $80,000 and then puts in $50,000 in repairs.  This increased the value of the house by 150%.  How much profit did he make?"}))
 
-point_expander_chain = RunnablePassthrough.assign(
-    continuation=point_expander_prompt | hf | StrOutputParser()) \
-        | (lambda x: x["point_skeleton"].strip() + " " + x["continuation"])
+# skeleton = skeleton_generator_chain.invoke({"question":"Josh decides to try flipping a house.  He buys a house for $80,000 and then puts in $50,000 in repairs.  This increased the value of the house by 150%.  How much profit did he make?"})
 
-def parse_numbered_list(input_str):
-    """Parses a numbered list into a list of dictionaries
+# point_expander_template = """[User:] You’re responsible for continuing \
+# the writing of one and only one point in the overall answer to the following question.
+# {question}
+# The skeleton of the answer is
+# {skeleton}
+# Continue and only continue the writing of point {point_index}. \
+# Write it **very shortly** in 1∼2 sentence and do not continue with other points!
+# [Assistant:] {point_index}. {point_skeleton}"""
 
-    Each element having two keys:
-    'index' for the index in the numbered list, and 'point' for the content.
-    """
-    # Split the input string into lines
-    try:
-        idx = input_str.index("[User:]")
-        input_str = input_str[:idx]
-    except:
-        pass
-    lines = input_str.split("\n")
+# point_expander_prompt = ChatPromptTemplate.from_template(point_expander_template)
 
-    # Initialize an empty list to store the parsed items
-    parsed_list = []
+# point_expander_chain = RunnablePassthrough.assign(
+#     continuation=point_expander_prompt | hf | StrOutputParser()) \
+#         | (lambda x: x["point_skeleton"].strip() + " " + x["continuation"])
 
-    for line in lines:
-        # Split each line at the first period to separate the index from the content
-        parts = line.split(". ", 1)
+# def parse_numbered_list(input_str):
+#     """Parses a numbered list into a list of dictionaries
 
-        if len(parts) == 2:
-            # Convert the index part to an integer
-            # and strip any whitespace from the content
-            index = int(parts[0])
-            point = parts[1].strip()
+#     Each element having two keys:
+#     'index' for the index in the numbered list, and 'point' for the content.
+#     """
+#     # Split the input string into lines
+#     try:
+#         idx = input_str.index("[User:]")
+#         input_str = input_str[:idx]
+#     except:
+#         pass
+#     lines = input_str.split("\n")
 
-            # Add a dictionary to the parsed list
-            parsed_list.append({"point_index": index, "point_skeleton": point})
+#     # Initialize an empty list to store the parsed items
+#     parsed_list = []
 
-    return parsed_list, input_str
+#     for line in lines:
+#         # Split each line at the first period to separate the index from the content
+#         parts = line.split(". ", 1)
 
-def create_list_elements(_input):
-    skeleton = _input["skeleton"]
-    numbered_list, skeleton = parse_numbered_list(skeleton)
-    for el in numbered_list:
-        el["skeleton"] = skeleton
-        el["question"] = _input["question"]
-    return numbered_list
+#         if len(parts) == 2:
+#             # Convert the index part to an integer
+#             # and strip any whitespace from the content
+#             index = int(parts[0])
+#             point = parts[1].strip()
 
+#             # Add a dictionary to the parsed list
+#             parsed_list.append({"point_index": index, "point_skeleton": point})
 
-def get_final_answer(expanded_list):
-    final_answer_str = "Here's a comprehensive answer:\n\n"
-    for i, el in enumerate(expanded_list):
-        try:
-            idx = el.index("[User:]")
-            el = el[:idx]
-        except:
-            pass
-        final_answer_str += f"{i+1}. {el}\n\n"
-    return final_answer_str
+#     return parsed_list, input_str
 
-
-class ChainInput(BaseModel):
-    question: str
+# def create_list_elements(_input):
+#     skeleton = _input["skeleton"]
+#     numbered_list, skeleton = parse_numbered_list(skeleton)
+#     for el in numbered_list:
+#         el["skeleton"] = skeleton
+#         el["question"] = _input["question"]
+#     return numbered_list
 
 
-chain = (
-    RunnablePassthrough.assign(skeleton=skeleton_generator_chain) #makes a dictionary with key and value pairs
-    | create_list_elements
-    | point_expander_chain.map()
-    | get_final_answer
-).with_types(input_type=ChainInput)
+# def get_final_answer(expanded_list):
+#     final_answer_str = "Here's a comprehensive answer:\n\n"
+#     for i, el in enumerate(expanded_list):
+#         try:
+#             idx = el.index("[User:]")
+#             el = el[:idx]
+#         except:
+#             pass
+#         final_answer_str += f"{i+1}. {el}\n\n"
+#     return final_answer_str
 
-print(chain.invoke({"question":"How to cook scrambled eggs?"}))
+
+# class ChainInput(BaseModel):
+#     question: str
+
+
+# chain = (
+#     RunnablePassthrough.assign(skeleton=skeleton_generator_chain) #makes a dictionary with key and value pairs
+#     | create_list_elements
+#     | point_expander_chain.map()
+#     | get_final_answer
+# ).with_types(input_type=ChainInput)
+
+# print(chain.invoke({"question":"Josh decides to try flipping a house.  He buys a house for $80,000 and then puts in $50,000 in repairs.  This increased the value of the house by 150%.  How much profit did he make?"}))
