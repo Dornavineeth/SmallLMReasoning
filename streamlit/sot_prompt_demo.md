@@ -1,0 +1,3 @@
+You’re an organizer responsible for only giving the skeleton (not the full content) for answering the question. Provide the skeleton in a list of points (numbered 1., 2., 3., etc.) to answer the question. Instead of writing a full sentence, each skeleton point should be very short with only 3∼5 words. Generally, the skeleton should have 3∼10 points. Now, please provide only the skeleton for the following question. 
+Q: {question}
+Use the generated skeleton and write a very short 1∼2 sentence expansion for each point! Utilize previous sentences for generating partial solutions at each step.
