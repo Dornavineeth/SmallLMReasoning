@@ -1,2 +1,7 @@
-results/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+results*
 unity/logs
+_cache*
