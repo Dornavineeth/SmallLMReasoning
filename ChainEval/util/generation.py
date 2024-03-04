@@ -13,20 +13,45 @@ from typing import (
     Union,
 )
 
-
+# Filling in the variables in the prompt
 def prompt_infilling_dataset(dataset, prompt):
     def infill(examples):
+        # Empty list
         inputs = []
         keys = list(examples.keys())
+        # Iterating over the questions
         for i in range(len(examples[keys[0]])):
+            # A dictionary example with one question and one answer 
             example = {k:examples[k][i] for k in keys}
+            # Append this to a list
             inputs.append(prompt.format(**example))
+        # Updated dataset - {'question':[], 'answer':[], 'input':[]}    
         examples.update({'input':inputs})
         return examples
+    # Function mapping 
     dataset = dataset.map(infill, batched=True)
     return dataset
 
-def prompt_infilling_batch(batch, prompt):
+# Question filling in the prompts
+def prompt_infilling_batch_skeleton(batch, prompt):
+    inputs = []
+    keys = list(batch.keys())
+    for i in range(len(batch[keys[0]])):
+        example = {k:batch[k][i] for k in keys}
+        inputs.append(prompt.format(**example))
+    return inputs
+
+# Skeleton and Question filling in the prompts
+def prompt_infilling_batch_reasoning(batch, prompt):
+    inputs = []
+    keys = list(batch.keys())
+    for i in range(len(batch[keys[0]])):
+        example = {k:batch[k][i] for k in keys}
+        inputs.append(prompt.format(**example))
+    return inputs
+
+# Reasoning and Question filling in prompts
+def prompt_infilling_batch_answer(batch, prompt):
     inputs = []
     keys = list(batch.keys())
     for i in range(len(batch[keys[0]])):
@@ -50,7 +75,7 @@ def tok_batch_encode(
         padding="longest",
         return_tensors="pt",
     )
-    # TODO: handle differently for gemma models , we need ot add bos_token
+    # TODO: handle differently for gemma models , we need to add bos_token
     
     if left_truncate_len:
         encoding["input_ids"] = encoding["input_ids"][:, -left_truncate_len:]
@@ -61,7 +86,7 @@ def tok_batch_encode(
 
     return encoding["input_ids"], encoding["attention_mask"]
 
-
+# Decoding model output tokens
 def tok_decode(tokens, tokenizer):
     return tokenizer.decode(tokens, skip_special_tokens=True)
 

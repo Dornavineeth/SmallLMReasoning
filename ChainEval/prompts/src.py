@@ -7,3 +7,73 @@ Q: There were nine computers in the server room. Five more computers were instal
 Q: Michael had 58 golf balls. On tuesday, he lost 23 golf balls. On wednesday, he lost 2 more. How many golf balls did he have at the end of wednesday?\nA: Michael started with 58 golf balls. After losing 23 on tuesday, he had 58 - 23 = 35. After losing 2 more, he had 35 - 2 = 33 golf balls. The answer is 33.\n\n\
 Q: Olivia has $23. She bought five bagels for $3 each. How much money does she have left?\nA: Olivia had 23 dollars. 5 bagels for 3 dollars each will be 5 x 3 = 15 dollars. So she has 23 - 15 dollars left. 23 - 15 is 8. The answer is 8.\n\n\
 Q: {question}\nA:"""
+
+
+GSM8K_SKELETON = """You’re an organizer responsible for only giving the skeleton (not the full content) for answering the question. Provide the skeleton in a list of points (numbered 1., 2., 3., etc.) to answer the question. Instead of writing a full sentence, each skeleton point should be very short with only 3∼5 words. Generally, the skeleton should have 3∼10 points. Now, please provide only the skeleton for the following question. \n\n\
+Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
+Skeleton:
+1. Start with 15 trees.
+2. Grove workers plant trees.
+3. After planting, total trees become 21.
+4. Calculate the trees planted.
+
+Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+Skeleton:
+1. Start with 3 cars.
+2. Add 2 more cars.
+3. Total cars?
+
+Q: {question}
+Skeleton:
+"""
+
+GSM8K_REASONING = """You’re responsible for continuing the writing of each point in the skeleton to get the overall answer to the question. Write it very shortly in 1∼2 sentence for each point! Utilize information from question and previous point expansions for generating solutions at each step. \n\n\
+Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
+Skeleton:
+1. Start with 15 trees.
+2. Grove workers plant trees.
+3. After planting, total trees become 21.
+4. Calculate the trees planted.
+Reasoning:
+1. Start with 15 trees.
+2. Grove workers plant trees. The total number of trees is increased, but the specific number is not mentioned.
+3. After planting, total trees become 21.
+4. Calculate the trees planted. Subtract the initial count of 15 trees from the final count of 21 trees, revealing that the grove workers planted 6 trees today. 
+
+Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+Skeleton:
+1. Start with 3 cars.
+2. Add 2 more cars.
+3. Total cars?
+Reasoning:
+1. Start with 3 cars.
+2. Add 2 more cars.
+3. Total cars? Combine the initial 3 cars with the additional 2 cars, resulting in a total of 5 cars in the parking lot.
+
+Q: {question}
+Skeleton: {skeleton}
+Reasoning:
+"""
+
+GSM8K_ANSWER = """You're responsible for answer extraction from the provided reasoning. \n\n\
+Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
+Reasoning:
+1. Start with 15 trees.
+2. Grove workers plant trees. The total number of trees is increased, but the specific number is not mentioned.
+3. After planting, total trees become 21.
+4. Calculate the trees planted. Subtract the initial count of 15 trees from the final count of 21 trees, revealing that the grove workers planted 6 trees today. 
+Answer:
+The answer is 6.
+
+Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+Reasoning:
+1. Start with 3 cars.
+2. Add 2 more cars.
+3. Total cars? Combine the initial 3 cars with the additional 2 cars, resulting in a total of 5 cars in the parking lot. 
+Answer:
+The answer is 5.
+
+Q: {question}
+Reasoning: {reasoning}
+Answer:
+"""

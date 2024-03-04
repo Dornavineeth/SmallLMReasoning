@@ -15,7 +15,7 @@ dataset_config:
     cache_dir: _cache_data/
 
 prompt_config:
-  prompt_name: GSM8K_FEWSHOT
+  prompt_name: GSM8K_SOT
 
 generation_kwargs:
   max_new_tokens: 200

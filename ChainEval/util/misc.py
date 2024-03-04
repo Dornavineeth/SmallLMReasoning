@@ -5,6 +5,7 @@ import torch
 import random
 import numpy as np
 
+# Setting a seed value for consistent results
 def seed_everything(seed=42):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
@@ -14,6 +15,7 @@ def seed_everything(seed=42):
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
 
+# Loading the YAML config file
 def load_config(path):
     with open(path) as stream:
         try:
