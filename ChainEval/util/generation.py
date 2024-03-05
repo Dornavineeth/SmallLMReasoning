@@ -33,25 +33,7 @@ def prompt_infilling_dataset(dataset, prompt):
     return dataset
 
 # Question filling in the prompts
-def prompt_infilling_batch_skeleton(batch, prompt):
-    inputs = []
-    keys = list(batch.keys())
-    for i in range(len(batch[keys[0]])):
-        example = {k:batch[k][i] for k in keys}
-        inputs.append(prompt.format(**example))
-    return inputs
-
-# Skeleton and Question filling in the prompts
-def prompt_infilling_batch_reasoning(batch, prompt):
-    inputs = []
-    keys = list(batch.keys())
-    for i in range(len(batch[keys[0]])):
-        example = {k:batch[k][i] for k in keys}
-        inputs.append(prompt.format(**example))
-    return inputs
-
-# Reasoning and Question filling in prompts
-def prompt_infilling_batch_answer(batch, prompt):
+def prompt_infilling_batch_SoT(batch, prompt):
     inputs = []
     keys = list(batch.keys())
     for i in range(len(batch[keys[0]])):
