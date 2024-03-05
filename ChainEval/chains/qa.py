@@ -70,6 +70,9 @@ def main(config):
         # Done skeleton generation, now starting with reasoning
         reasoning_inputs = prompt_infilling_batch_reasoning(batch, reasoning_prompt)
         input_ids, attention_mask = tok_batch_encode(reasoning_inputs, tokenizer, padding_side, left_truncate_len, truncation)
+        stopping_criteria = stop_sequences_criteria(
+            tokenizer, until, input_ids.shape[1], input_ids.shape[0]
+        )
         output = model.generate(
             input_ids=input_ids.to(device),
             attention_mask=attention_mask.to(device),
@@ -92,6 +95,9 @@ def main(config):
         # Done with reasoning generation, now starting answer extraction
         answer_inputs = prompt_infilling_batch_answer(batch, answer_prompt)
         input_ids, attention_mask = tok_batch_encode(answer_inputs, tokenizer, padding_side, left_truncate_len, truncation)
+        stopping_criteria = stop_sequences_criteria(
+            tokenizer, until, input_ids.shape[1], input_ids.shape[0]
+        )
         output = model.generate(
             input_ids=input_ids.to(device),
             attention_mask=attention_mask.to(device),
