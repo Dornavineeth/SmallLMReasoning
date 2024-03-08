@@ -15,7 +15,7 @@ dataset_config:
     cache_dir: _cache_data/
 
 prompt_config:
-  prompt_name: GSM8K_FEWSHOT
+  prompt_name: GSM8K_SOT
 
 generation_kwargs:
   max_new_tokens: 200
@@ -31,6 +31,6 @@ batch_size: 4
 padding_size: left
 truncation: False
 seed: 0
-results_fn: results.json
+results_fn: results_sot.json
 device: cuda
 limit: 20

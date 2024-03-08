@@ -33,7 +33,7 @@ def prompt_infilling_dataset(dataset, prompt):
     return dataset
 
 # Question filling in the prompts
-def prompt_infilling_batch_SoT(batch, prompt):
+def prompt_infilling_batch(batch, prompt):
     inputs = []
     keys = list(batch.keys())
     for i in range(len(batch[keys[0]])):

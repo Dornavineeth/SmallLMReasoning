@@ -7,4 +7,11 @@ def get_dataset(config):
     else:
         raise NotImplementedError
     # return the loaded dataset (stored in cache)
-    return dataset
+    numbered_dataset = dataset.map(add_numbering, with_indices=True)
+    return numbered_dataset
+
+def add_numbering(example, idx):
+    example_new = {}
+    example_new['doc_id'] = idx
+    example_new.update(example)
+    return example_new

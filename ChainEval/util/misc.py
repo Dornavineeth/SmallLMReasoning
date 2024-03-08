@@ -28,3 +28,12 @@ def save_json(results, path):
     # Write the data to a JSON file with indentation for better readability
     with open(path, 'w') as output_file:
 	    json.dump(results, output_file, indent=2)
+
+
+def read_json(path):
+    with open(path) as json_file:
+        json_data = json.load(json_file)
+    return json_data
+
+def collate_fn(batch):
+    return {key: [i[key] for i in batch] for key in batch[0]}
