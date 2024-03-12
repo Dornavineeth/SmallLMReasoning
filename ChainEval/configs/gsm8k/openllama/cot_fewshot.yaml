@@ -1,7 +1,7 @@
 model_config:
-  model_name: microsoft/phi-2
+  model_name: openlm-research/open_llama_3b_v2
   model_kwargs:
-    pretrained_model_name_or_path: microsoft/phi-2
+    pretrained_model_name_or_path: openlm-research/open_llama_3b_v2
     trust_remote_code: True
     device_map: auto
     cache_dir: _cache_models/
@@ -15,7 +15,7 @@ dataset_config:
     cache_dir: _cache_data/
 
 prompt_config:
-  prompt_name: GSM8K_SOT
+  prompt_name: GSM8K_COT_FEWSHOT
 
 generation_kwargs:
   max_new_tokens: 200
@@ -31,6 +31,6 @@ batch_size: 4
 padding_size: left
 truncation: False
 seed: 0
-results_fn: results_sot.json
+results_fn: results.json
 device: cuda
 limit: 20
