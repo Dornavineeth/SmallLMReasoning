@@ -76,7 +76,7 @@ def main(config, outdir):
         batch, inputs, res = step_processing(batch, reasoning_prompt, model, tokenizer, padding_side, left_truncate_len ,truncation, until, device, **generation_kwargs)
         batch.update({'input_reasoning': inputs,'reasoning':res})
         batch, inputs, res = step_processing(batch, answer_prompt, model, tokenizer, padding_side, left_truncate_len ,truncation, until, device, **generation_kwargs)
-        batch.update({'input_ans': inputs,'prediction':res})
+        batch.update({'input_ans': inputs,'response':res})
         res = [{k: v[i] for k, v in batch.items()} for i in range(len(list(batch.values())[0]))]
         results += res
     # Write the list to a JSON file

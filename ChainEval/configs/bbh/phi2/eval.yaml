@@ -15,9 +15,8 @@ metrics:
       - "\\.$"
 
 filter_list:
-    - name: "get-answer"
-      filter:
-        - function: "regex"
-          # regex_pattern: "The answer is (\\-?[0-9\\.\\,]+)."
-          regex_pattern: "So the answer is (.*)."
-        - function: "take_first"
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "(?<=the answer is )(.*)(?=.)"
+      - function: "take_first"

@@ -5,7 +5,7 @@ conda activate harness
 cd /work/pi_dhruveshpate_umass_edu/achauhan_umass_edu/SmallLMReasoning/ChainEval
 export PYTHONPATH=".":$PYTHONPATH
 
-config="configs/bbh/phi2_bbh_"
+config="configs/bbh/phi2/phi2_bbh_"
 directory="results/phi2/bbh/"
 
 tasks=("boolean_expressions" \
@@ -41,5 +41,5 @@ for task in "${tasks[@]}"; do
     task_config="$config$task".yaml
 
     python chains/qa.py --config $task_config --outdir $task_directory
-    python eval/eval.py --config configs/eval_bbh.yaml --outdir $task_directory
+    python eval/eval.py --config configs/bbh/phi2/eval.yaml --outdir $task_directory
 done
