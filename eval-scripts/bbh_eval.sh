@@ -5,7 +5,7 @@ conda activate harness
 cd /work/pi_dhruveshpate_umass_edu/achauhan_umass_edu/SmallLMReasoning/ChainEval
 export PYTHONPATH=".":$PYTHONPATH
 
-config="configs/bbh/phi2/phi2_bbh_"
+config="configs/bbh/phi2/cot_fewshot_"
 directory="results/phi2/bbh/"
 
 tasks=("boolean_expressions" \

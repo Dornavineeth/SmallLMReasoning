@@ -33,4 +33,4 @@ truncation: False
 seed: 0
 results_fn: results.json
 device: cuda
-# limit: 20
+limit: 20
