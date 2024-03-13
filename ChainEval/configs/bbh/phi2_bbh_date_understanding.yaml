@@ -1,0 +1,36 @@
+model_config:
+  model_name: microsoft/phi-2
+  model_kwargs:
+    pretrained_model_name_or_path: microsoft/phi-2
+    trust_remote_code: True
+    device_map: auto
+    cache_dir: _cache_models/
+
+dataset_config:
+  dataset_name: bbh
+  dataset_kwargs:
+    path: lukaemon/bbh
+    name: date_understanding
+    split: test
+    cache_dir: _cache_data/
+
+prompt_config:
+  prompt_name: BBH_COT_FEWSHOT
+  task_name: date_understanding
+
+generation_kwargs:
+  max_new_tokens: 200
+  do_sample: False
+
+until:
+  - "</s>"
+  - "Q"
+  - "\n\n"
+
+batch_size: 4
+padding_size: left
+truncation: False
+seed: 0
+results_fn: results.json
+device: cuda
+limit: 20

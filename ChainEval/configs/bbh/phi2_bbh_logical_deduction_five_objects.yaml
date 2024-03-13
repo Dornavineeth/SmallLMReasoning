@@ -10,13 +10,13 @@ dataset_config:
   dataset_name: bbh
   dataset_kwargs:
     path: lukaemon/bbh
-    name: boolean_expressions
+    name: logical_deduction_five_objects
     split: test
     cache_dir: _cache_data/
 
 prompt_config:
-  prompt_name: BBH_FEWSHOT
-  task_name: boolean_expressions
+  prompt_name: BBH_COT_FEWSHOT
+  task_name: logical_deduction_five_objects
 
 generation_kwargs:
   max_new_tokens: 200

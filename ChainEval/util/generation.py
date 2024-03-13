@@ -38,8 +38,15 @@ def prompt_infilling_batch(batch, prompt):
     keys = list(batch.keys())
     for i in range(len(batch[keys[0]])):
         example = {k:batch[k][i] for k in keys}
-        inputs.append(prompt.format(**example))
+        inputs.append(custom_format(prompt, example))
     return inputs
+
+def custom_format(prompt, example):
+    for k,v in example.items():
+        substring = "{" + k + "}"
+        prompt = prompt.replace(substring, str(v))
+    return prompt
+
 
 def tok_batch_encode(
         strings,
