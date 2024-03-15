@@ -5,6 +5,7 @@ import torch
 import random
 import numpy as np
 
+# Setting a seed value for consistent results
 def seed_everything(seed=42):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
@@ -14,6 +15,7 @@ def seed_everything(seed=42):
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
 
+# Loading the YAML config file
 def load_config(path):
     with open(path) as stream:
         try:
@@ -26,3 +28,12 @@ def save_json(results, path):
     # Write the data to a JSON file with indentation for better readability
     with open(path, 'w') as output_file:
 	    json.dump(results, output_file, indent=2)
+
+
+def read_json(path):
+    with open(path) as json_file:
+        json_data = json.load(json_file)
+    return json_data
+
+def collate_fn(batch):
+    return {key: [i[key] for i in batch] for key in batch[0]}
