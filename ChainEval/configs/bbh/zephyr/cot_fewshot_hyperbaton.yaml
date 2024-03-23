@@ -1,0 +1,36 @@
+model_config:
+  model_name: stabilityai/stablelm-zephyr-3b
+  model_kwargs:
+    pretrained_model_name_or_path: stabilityai/stablelm-zephyr-3b
+    trust_remote_code: True
+    device_map: auto
+    cache_dir: _cache_models/
+
+dataset_config:
+  dataset_name: bbh
+  dataset_kwargs:
+    path: lukaemon/bbh
+    name: hyperbaton
+    split: test
+    cache_dir: _cache_data/
+
+prompt_config:
+  prompt_name: BBH_COT_FEWSHOT
+  task_name: hyperbaton
+
+generation_kwargs:
+  max_new_tokens: 200
+  do_sample: False
+
+until:
+  - "</s>"
+  - "Q"
+  - "\n\n"
+
+batch_size: 4
+padding_size: left
+truncation: False
+seed: 0
+results_fn: results.json
+device: cuda
+# limit: 20
