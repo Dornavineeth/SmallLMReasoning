@@ -10,11 +10,11 @@ def get_dataset(config):
         # Extract the sub-task name
         task = config['dataset_kwargs']['name']
         # Link to the JSON files
-        BASE_URL = "https://github.com/suzgunmirac/BIG-Bench-Hard/blob/main/bbh/"
+        BASE_URL = "https://github.com/suzgunmirac/BIG-Bench-Hard/raw/main/bbh/"
         # Load the JSON files 
         loaded_dataset = json.loads(requests.get(f"{BASE_URL}{task}.json").text)
         # Extract the question and answers from the file
-        loaded_dataset = json.loads(loaded_dataset['payload']['blob']['rawLines'][0])["examples"]
+        loaded_dataset = loaded_dataset["examples"]
         for item in loaded_dataset:
             pair = {'question': item['input'], 'answer': item['target']}
             dataset.append(pair)

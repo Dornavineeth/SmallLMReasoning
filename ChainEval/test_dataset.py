@@ -11,10 +11,11 @@ def main(config):
     # if limit:
     #     dataset = dataset.select(range(limit))
     data_loader = DataLoader(dataset, batch_size=config['batch_size'], shuffle=False, collate_fn= collate_fn)
+    idx = 0
     for batch in tqdm(data_loader):
-        print(batch.keys())
-        print(batch)
-        break
+        if idx in list(range(924, 928)):
+            print(batch)
+        idx+=1
 
 
 def parse_args():

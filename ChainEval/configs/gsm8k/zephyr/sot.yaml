@@ -32,4 +32,4 @@ padding_size: left
 truncation: False
 seed: 0
 device: cuda
-limit: 20
+# limit: 20

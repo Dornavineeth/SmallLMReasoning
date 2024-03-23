@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# change mail-user to your email and run by command: sbatch abc.sbatch
+#
+#SBATCH --job-name=ChainEval
+#SBATCH -c 18                               # Number of Cores per Task
+#SBATCH -p gpu                              # Partition to submit to (serial_requeue), see here for all avaible resource: https://docs.unity.rc.umass.edu/technical/nodelist.html
+#SBATCH -G 5                                # Number of GPUs
+#SBATCH --mem=20GB                           # Memory pool for all cores (see also --mem-per-cpu)
+#SBATCH --mail-user=achauhan@umass.edu        # Email to which notifications will be sent
+#SBATCH --mail-type=ALL                     # Email for all types of Actions
+#SBATCH -t 1-00:00:0                        # Job time limit 7-10:00:00 
+#SBATCH --account=pi_dhruveshpate_umass_edu # PI account
+
+#SBATCH -e logs/ChainEval.err               # File to which STDERR will be written
+#SBATCH --output=logs/ChainEval.txt         # output file
+
+
+module load miniconda/22.11.1-1
+conda activate harness
+
+nvidia-smi
+cd /work/pi_dhruveshpate_umass_edu/achauhan_umass_edu/SmallLMReasoning/ChainEval
+
+# python -m chains.qa --config configs/phi2_gsm8k.yaml
+# python -m chains.SoT --config configs/phi2_gsm8k_sot.yaml
+
+# python -m chains.qa --config configs/gsm8k/phi2/cot_fewshot.yaml --outdir results/phi2/gsm8k/cot_fewshot
+# python -m eval.eval --config configs/gsm8k/phi2/eval.yaml --outdir results/phi2/gsm8k/cot_fewshot
+
+# python -m chains.qa --config configs/phi2_gsm8k_cot_step_fewshot.yaml --outdir results/phi2/gsm8k_cot_step_fewshot
+# python -m eval.eval --config configs/eval.yaml --outdir results/phi2/gsm8k_cot_step_fewshot
+
+# python -m chains.sot --config configs/gsm8k/phi2/sot.yaml --outdir results/phi2/gsm8k/sot_diverse
+# python -m eval.eval --config configs/gsm8k/phi2/eval.yaml --outdir results/phi2/gsm8k/sot_diverse
+
+# python -m chains.qa --config configs/bbh/phi2_bbh.yaml --outdir results/phi2/bbh_cot_fewshot
+# python -m eval.eval --config configs/bbh/eval.yaml --outdir results/phi2/bbh_cot_fewshot
+
+
+# python -m chains.qa --config configs/gsm8k/openllama/cot_fewshot.yaml --outdir results/openllama/gsm8k/cot_fewshot
+# python -m eval.eval --config configs/gsm8k/openllama/eval.yaml --outdir results/openllama/gsm8k/cot_fewshot
+# python -m chains.qa --config configs/gsm8k/openllama/cot_step_fewshot.yaml --outdir results/openllama/gsm8k/cot_step_fewshot
+# python -m eval.eval --config configs/gsm8k/openllama/eval.yaml --outdir results/openllama/gsm8k/cot_step_fewshot
+# python -m chains.sot --config configs/gsm8k/openllama/sot.yaml --outdir results/openllama/gsm8k/sot
+# python -m eval.eval --config configs/gsm8k/openllama/eval.yaml --outdir results/openllama/gsm8k/sot
+
+# python -m chains.qa --config configs/gsm8k/zephyr/cot_fewshot.yaml --outdir results/zephyr/gsm8k/cot_fewshot
+# python -m eval.eval --config configs/gsm8k/zephyr/eval.yaml --outdir results/zephyr/gsm8k/cot_fewshot
+# python -m chains.qa --config configs/gsm8k/zephyr/cot_step_fewshot.yaml --outdir results/zephyr/gsm8k/cot_step_fewshot
+# python -m eval.eval --config configs/gsm8k/zephyr/eval.yaml --outdir results/zephyr/gsm8k/cot_step_fewshot
+# python -m chains.sot --config configs/gsm8k/zephyr/sot.yaml --outdir results/zephyr/gsm8k/sot_eighth
+# python -m eval.eval --config configs/gsm8k/zephyr/eval.yaml --outdir results/zephyr/gsm8k/sot_eighth
+
+
+bash ../eval-scripts/bbh_eval.sh
+
+echo "Done"

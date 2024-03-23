@@ -26,6 +26,66 @@ Q: Michael had 58 golf balls. On tuesday, he lost 23 golf balls. On wednesday, h
 Q: Olivia has $23. She bought five bagels for $3 each. How much money does she have left?\nA: Let's think step by step.\nOlivia had 23 dollars. 5 bagels for 3 dollars each will be 5 x 3 = 15 dollars. So she has 23 - 15 dollars left. 23 - 15 is 8. The answer is 8.\n\n\
 Q: {question}\nA: Let's think step by step.\n"""
 
+
+# GSM8K_SKELETON = """You’re an organizer responsible for only giving the skeleton (not the full content) for answering the question. Provide the skeleton in a list of points (numbered 1., 2., 3., etc.) to answer the question. Instead of writing a full sentence, each skeleton point should be very short with only 3∼5 words. Generally, the skeleton should have 3∼10 points. Now, please provide only the skeleton for the following question. \n\n\
+# Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
+# Skeleton:
+# 1. Identify initial quantity.
+# 2. Describe change or action.
+# 3. State resulting quantity.
+# 4. Calculate difference.
+
+# Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+# Skeleton:
+# 1. Identify initial quantity.
+# 2. Determine additional quantity.
+# 3. Calculate sum of quantities.
+# 4. State final total.
+
+# Q: Leah had 32 chocolates and her sister had 42. If they ate 35, how many pieces do they have left in total?
+# Skeleton:
+# 1. Combine initial quantities.
+# 2. Subtract consumed amount.
+# 3. Calculate remaining total.
+
+# Q: Jason had 20 lollipops. He gave Denny some lollipops. Now Jason has 12 lollipops. How many lollipops did Jason give to Denny?
+# Skeleton:
+# 1. Record initial amount.
+# 2. Note final amount.
+# 3. Determine difference given.
+
+# Q: Shawn has five toys. For Christmas, he got two toys each from his mom and dad. How many toys does he have now?
+# Skeleton:
+# 1. Initial count.
+# 2. Increment from first source.
+# 3. Increment from second source.
+# 4. Sum for final total.
+
+# Q: There were nine computers in the server room. Five more computers were installed each day, from monday to thursday. How many computers are now in the server room?
+# Skeleton:
+# 1. Start with initial count.
+# 2. Define daily addition.
+# 3. Calculate total addition.
+# 4. Sum for final count.
+
+# Q: Michael had 58 golf balls. On tuesday, he lost 23 golf balls. On wednesday, he lost 2 more. How many golf balls did he have at the end of wednesday?
+# Skeleton:
+# 1. Initial quantity.
+# 2. Subtract first loss.
+# 3. Subtract second loss.
+# 4. Final quantity.
+
+# Q: Olivia has $23. She bought five bagels for $3 each. How much money does she have left?
+# Skeleton:
+# 1. Start with initial money.
+# 2. Calculate total cost.
+# 3. Subtract cost from money.
+# 4. Final amount left.
+
+# Q: {question}
+# Skeleton:
+# """
+
 GSM8K_SKELETON = """You’re an organizer responsible for only giving the skeleton (not the full content) for answering the question. Provide the skeleton in a list of points (numbered 1., 2., 3., etc.) to answer the question. Instead of writing a full sentence, each skeleton point should be very short with only 3∼5 words. Generally, the skeleton should have 3∼10 points. Now, please provide only the skeleton for the following question. \n\n\
 Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
 Skeleton:
@@ -33,13 +93,6 @@ Skeleton:
 2. Describe change or action.
 3. State resulting quantity.
 4. Calculate difference.
-
-Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
-Skeleton:
-1. Identify initial quantity.
-2. Determine additional quantity.
-3. Calculate sum of quantities.
-4. State final total.
 
 Q: Leah had 32 chocolates and her sister had 42. If they ate 35, how many pieces do they have left in total?
 Skeleton:
@@ -81,9 +134,114 @@ Skeleton:
 3. Subtract cost from money.
 4. Final amount left.
 
+Q: Mrs. Snyder used to spend 40% of her monthly income on rent and utilities. Her salary was recently increased by $600 so now her rent and utilities only amount to 25% of her monthly income. How much was her previous monthly income?
+Skeleton:
+1. Identify the previous percentage spent.
+2. Determine the increased salary.
+3. Calculate the new percentage spent.
+4. Set up an equation.
+5. Solve for the previous income.
+
 Q: {question}
 Skeleton:
 """
+
+# GSM8K_REASONING = """You’re responsible for continuing the writing of each point in the skeleton to get the overall answer to the question. Write it very shortly in 1∼2 sentence for each point! Utilize information from question and previous point expansions for generating solutions at each step. \n\n\
+# Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
+# Skeleton:
+# 1. Identify initial quantity.
+# 2. Describe change or action.
+# 3. State resulting quantity.
+# 4. Calculate difference/total.
+# Reasoning:
+# 1. Initially, there are 15 trees in the grove.
+# 2. Workers planted additional trees today.
+# 3. After planting, there are 21 trees in total.
+# 4. Therefore, number of trees planted today must be 21 - 15 = 6.
+
+# Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+# Skeleton:
+# 1. Identify initial quantity.
+# 2. Determine additional quantity.
+# 3. Calculate sum of quantities.
+# 4. State final total.
+# Reasoning:
+# 1. The parking lot initially has 3 cars.
+# 2. 2 additional cars join the parking lot.
+# 3. The final count of cars in the parking lot is 2 + 3 = 5.
+
+# Q: Leah had 32 chocolates and her sister had 42. If they ate 35, how many pieces do they have left in total?
+# Skeleton:
+# 1. Combine initial quantities.
+# 2. Subtract consumed amount.
+# 3. Calculate remaining total.
+# Reasoning:
+# 1. Leah and her sister have a total of 32 + 42 = 74 chocolates initially.
+# 2. They eat 35 chocolates, decreasing their total count.
+# 3. After eating, they are left with 74 - 35 = 39 chocolates.
+
+# Q: Jason had 20 lollipops. He gave Denny some lollipops. Now Jason has 12 lollipops. How many lollipops did Jason give to Denny?
+# Skeleton:
+# 1. Record initial amount.
+# 2. Note final amount.
+# 3. Determine difference given.
+# Reasoning:
+# 1. Jason starts with 20 lollipops initially.
+# 2. After giving some to Denny, Jason has 12 lollipops left.
+# 3. The difference, which represents the number given to Denny, is 20 - 12 = 8 lollipops.
+
+# Q: Shawn has five toys. For Christmas, he got two toys each from his mom and dad. How many toys does he have now?
+# Skeleton:
+# 1. Initial count.
+# 2. Increment from first source.
+# 3. Increment from second source.
+# 4. Sum for final total.
+# Reasoning:
+# 1. Shawn begins with 5 toys.
+# 2. His mom gives him 2 more toys, making it 5 + 2 = 7 toys.
+# 3. Then, his dad adds 2 more toys, totaling 7 + 2 = 9 toys.
+# 4. After receiving toys from both parents, Shawn has a total of 9 toys.
+
+# Q: There were nine computers in the server room. Five more computers were installed each day, from monday to thursday. How many computers are now in the server room?
+# Skeleton:
+# 1. Start with initial count.
+# 2. Define daily addition.
+# 3. Calculate total addition.
+# 4. Sum for final count.
+# Reasoning:
+# 1. Initially, there are 9 computers in the server room.
+# 2. From Monday to Thursday, 5 computers are added each day, totaling 4 days of additions.
+# 3. The total addition over these days is 5 x 4 = 20 computers.
+# 4. Combining the initial and new computers, the final count of computers in the server room is 9 + 20 = 29.
+
+# Q: Michael had 58 golf balls. On tuesday, he lost 23 golf balls. On wednesday, he lost 2 more. How many golf balls did he have at the end of wednesday?
+# Skeleton:
+# 1. Initial quantity.
+# 2. Subtract first loss.
+# 3. Subtract second loss.
+# 4. Final quantity.
+# Reasoning:
+# 1. Michael begins with 58 golf balls.
+# 2. On Tuesday, he loses 23 golf balls, leaving him with 58 - 23 = 35 golf balls.
+# 3. On Wednesday, he loses 2 more, reducing the total to 35 - 2 = 33 golf balls.
+# 4. By the end of Wednesday, Michael has 33 golf balls remaining.
+
+# Q: Olivia has $23. She bought five bagels for $3 each. How much money does she have left?
+# Skeleton:
+# 1. Start with initial money.
+# 2. Calculate total cost.
+# 3. Subtract cost from money.
+# 4. Final amount left.
+# Reasoning:
+# 1. Olivia begins with $23.
+# 2. Five bagels cost $3 each, totaling 5 x 3 = $15.
+# 3. Subtracting the total cost from her initial money, Olivia has $23 - $15 = $8 remaining.
+# 4. After buying the bagels, Olivia has $8 left.
+
+# Q: {question}
+# Skeleton: {skeleton}
+# Reasoning:
+# """
 
 GSM8K_REASONING = """You’re responsible for continuing the writing of each point in the skeleton to get the overall answer to the question. Write it very shortly in 1∼2 sentence for each point! Utilize information from question and previous point expansions for generating solutions at each step. \n\n\
 Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
@@ -97,17 +255,6 @@ Reasoning:
 2. Workers planted additional trees today.
 3. After planting, there are 21 trees in total.
 4. Therefore, number of trees planted today must be 21 - 15 = 6.
-
-Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
-Skeleton:
-1. Identify initial quantity.
-2. Determine additional quantity.
-3. Calculate sum of quantities.
-4. State final total.
-Reasoning:
-1. The parking lot initially has 3 cars.
-2. 2 additional cars join the parking lot.
-3. The final count of cars in the parking lot is 2 + 3 = 5.
 
 Q: Leah had 32 chocolates and her sister had 42. If they ate 35, how many pieces do they have left in total?
 Skeleton:
@@ -177,10 +324,100 @@ Reasoning:
 3. Subtracting the total cost from her initial money, Olivia has $23 - $15 = $8 remaining.
 4. After buying the bagels, Olivia has $8 left.
 
+Q: Mrs. Snyder used to spend 40% of her monthly income on rent and utilities. Her salary was recently increased by $600 so now her rent and utilities only amount to 25% of her monthly income. How much was her previous monthly income?
+Skeleton:
+1. Identify the previous percentage spent.
+2. Determine the increased salary.
+3. Calculate the new percentage spent.
+4. Set up an equation.
+5. Solve for the previous income.
+Reasoning:
+1. Spent 40% of her monthly income.
+2. Salary was increased by $600.
+3. New spent is 25% of her monthly income.
+4. Let x be her previous monthly income. The equation becomes 0.40x = 0.25(x + 600).
+5. Simplify the equation to 0.40x=0.25x+150. Then, subtract 0.25x from both sides, yielding 0.15x=150. Dividing both sides by 0.15, x = 1000. We find Mrs. Snyder's previous monthly income was $1000.
+
 Q: {question}
 Skeleton: {skeleton}
 Reasoning:
 """
+
+# GSM8K_ANSWER = """You're responsible for answer extraction from the provided reasoning. \n\n\
+
+# Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
+# Reasoning:
+# 1. Initially, there are 15 trees in the grove.
+# 2. Workers planted additional trees today.
+# 3. After planting, there are 21 trees in total.
+# 4. Therefore, number of trees planted today must be 21 - 15 = 6.
+# Answer:
+# The answer is 6.
+
+# Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+# Reasoning:
+# 1. The parking lot initially has 3 cars.
+# 2. 2 additional cars join the parking lot.
+# 3. The final count of cars in the parking lot is 2 + 3 = 5.
+# Answer:
+# The answer is 5.
+
+# Q: Leah had 32 chocolates and her sister had 42. If they ate 35, how many pieces do they have left in total?
+# Reasoning:
+# 1. Leah and her sister have a total of 32 + 42 = 74 chocolates initially.
+# 2. They eat 35 chocolates, decreasing their total count.
+# 3. After eating, they are left with 74 - 35 = 39 chocolates.
+# Answer:
+# The answer is 39.
+
+# Q: Jason had 20 lollipops. He gave Denny some lollipops. Now Jason has 12 lollipops. How many lollipops did Jason give to Denny?
+# Reasoning:
+# 1. Jason starts with 20 lollipops initially.
+# 2. After giving some to Denny, Jason has 12 lollipops left.
+# 3. The difference, which represents the number given to Denny, is 20 - 12 = 8 lollipops.
+# Answer:
+# The answer is 8.
+
+# Q: Shawn has five toys. For Christmas, he got two toys each from his mom and dad. How many toys does he have now?
+# Reasoning:
+# 1. Shawn begins with 5 toys.
+# 2. His mom gives him 2 more toys, making it 5 + 2 = 7 toys.
+# 3. Then, his dad adds 2 more toys, totaling 7 + 2 = 9 toys.
+# 4. After receiving toys from both parents, Shawn has a total of 9 toys.
+# Answer:
+# The answer is 9.
+
+# Q: There were nine computers in the server room. Five more computers were installed each day, from monday to thursday. How many computers are now in the server room?
+# Reasoning:
+# 1. Initially, there are 9 computers in the server room.
+# 2. From Monday to Thursday, 5 computers are added each day, totaling 4 days of additions.
+# 3. The total addition over these days is 5 x 4 = 20 computers.
+# 4. Combining the initial and new computers, the final count of computers in the server room is 9 + 20 = 29.
+# Answer:
+# The answer is 29.
+
+# Q: Michael had 58 golf balls. On tuesday, he lost 23 golf balls. On wednesday, he lost 2 more. How many golf balls did he have at the end of wednesday?
+# Reasoning:
+# 1. Michael begins with 58 golf balls.
+# 2. On Tuesday, he loses 23 golf balls, leaving him with 58 - 23 = 35 golf balls.
+# 3. On Wednesday, he loses 2 more, reducing the total to 35 - 2 = 33 golf balls.
+# 4. By the end of Wednesday, Michael has 33 golf balls remaining.
+# Answer:
+# The answer is 33.
+
+# Q: Olivia has $23. She bought five bagels for $3 each. How much money does she have left?
+# Reasoning:
+# 1. Olivia begins with $23.
+# 2. Five bagels cost $3 each, totaling 5 x 3 = $15.
+# 3. Subtracting the total cost from her initial money, Olivia has $23 - $15 = $8 remaining.
+# 4. After buying the bagels, Olivia has $8 left.
+# Answer:
+# The answer is 8.
+
+# Q: {question}
+# Reasoning: {reasoning}
+# Answer:
+# """
 
 GSM8K_ANSWER = """You're responsible for answer extraction from the provided reasoning. \n\n\
 
@@ -192,14 +429,6 @@ Reasoning:
 4. Therefore, number of trees planted today must be 21 - 15 = 6.
 Answer:
 The answer is 6.
-
-Q: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
-Reasoning:
-1. The parking lot initially has 3 cars.
-2. 2 additional cars join the parking lot.
-3. The final count of cars in the parking lot is 2 + 3 = 5.
-Answer:
-The answer is 5.
 
 Q: Leah had 32 chocolates and her sister had 42. If they ate 35, how many pieces do they have left in total?
 Reasoning:
@@ -252,6 +481,16 @@ Reasoning:
 4. After buying the bagels, Olivia has $8 left.
 Answer:
 The answer is 8.
+
+Q: Mrs. Snyder used to spend 40% of her monthly income on rent and utilities. Her salary was recently increased by $600 so now her rent and utilities only amount to 25% of her monthly income. How much was her previous monthly income?
+Reasoning:
+1. Spent 40% of her monthly income.
+2. Salary was increased by $600.
+3. New spent is 25% of her monthly income.
+4. Let x be her previous monthly income. The equation becomes 0.40x = 0.25(x + 600).
+5. Simplify the equation to 0.40x=0.25x+150. Then, subtract 0.25x from both sides, yielding 0.15x=150. Dividing both sides by 0.15, x = 1000. We find Mrs. Snyder's previous monthly income was $1000.
+Answer:
+The answer is 1000.
 
 Q: {question}
 Reasoning: {reasoning}
