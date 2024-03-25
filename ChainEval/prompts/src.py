@@ -419,7 +419,7 @@ Reasoning:
 # Answer:
 # """
 
-GSM8K_ANSWER = """You're responsible for answer extraction from the provided reasoning. \n\n\
+GSM8K_ANSWER = """You're responsible for answer extraction from the provided reasoning.
 
 Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there will be 21 trees. How many trees did the grove workers plant today?
 Reasoning:
@@ -526,4 +526,273 @@ BBH_COT_FEWSHOT = {
     "tracking_shuffled_objects_three_objects":"Q: Alice, Bob, and Claire are playing a game. At the start of the game, they are each holding a ball: Alice has a yellow ball, Bob has a blue ball, and Claire has a pink ball.\nAs the game progresses, pairs of players trade balls. First, Claire and Alice swap balls. Then, Alice and Bob swap balls. Finally, Claire and Bob swap balls. At the end of the game, Bob has the\nOptions:\n(A) yellow ball\n(B) blue ball\n(C) pink ball\nA: Let's think step by step.\n(0) At the start: Alice: yellow, Bob: blue, Claire: pink.\n(1) Claire and Alice swap balls: Alice: pink, Bob: blue, Claire: yellow.\n(2)  Alice and Bob swap balls: Alice: blue, Bob: pink, Claire: yellow.\n(3) Claire and Bob swap balls: Alice: blue, Bob: yellow, Claire: pink.\nAt the end of the game, Bob has the yellow ball. So the answer is (A).\n\nQ: Alice, Bob, and Claire are playing a game. At the start of the game, they are each holding a ball: Alice has a white ball, Bob has a purple ball, and Claire has a pink ball.\nAs the game progresses, pairs of players trade balls. First, Bob and Alice swap balls. Then, Bob and Claire swap balls. Finally, Bob and Alice swap balls. At the end of the game, Alice has the\nOptions:\n(A) white ball\n(B) purple ball\n(C) pink ball\nA: Let's think step by step.\n(0) At the start: Alice: white, Bob: purple, Claire: pink.\n(1) Bob and Alice swap balls: Alice: purple, Bob: white, Claire: pink.\n(2) Bob and Claire swap balls: Alice: purple, Bob: pink, Claire: white.\n(3) Bob and Alice swap balls: Alice: pink, Bob: purple, Claire: white.\nAt the end of the game, Alice has the pink ball. So the answer is (C).\n\nQ: Alice, Bob, and Claire are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Lola, Bob is dancing with Rodrigo, and Claire is dancing with Patrick.\nThroughout the song, the dancers often trade partners. First, Alice and Bob switch partners. Then, Claire and Bob switch partners. Finally, Bob and Alice switch partners. At the end of the dance, Alice is dancing with\nOptions:\n(A) Lola\n(B) Rodrigo\n(C) Patrick\nA: Let's think step by step.\n(0) At the start: Alice: Lola, Bob: Rodrigo, Claire: Patrick.\n(1) Alice and Bob switch partners: Alice: Rodrigo, Bob: Lola, Claire: Patrick.\n(2) Claire and Bob switch partners: Alice: Rodrigo, Bob: Patrick, Claire: Lola.\n(3) Bob and Alice switch partners: Alice: Patrick, Bob: Rodrigo, Claire: Lola.\nAt the end of the dance, Alice is dancing with Patrick. So the answer is (C).\n\nQ: {question}\nA: Let's think step by step.\n",
     "web_of_lies":"Q: Question: Fidel tells the truth. Jerry says Fidel tells the truth. Vina says Jerry tells the truth. Millicent says Vina lies. Raymond says Millicent lies. Does Raymond tell the truth?\nA: Let's think step by step.\n(1) Fidel tells the truth. So, we know that Fidel tells the truth.\n(2) Jerry says Fidel tells the truth. Since we know from (1) that Fidel tells the truth, if Jerry says that Fidel tells the truth, then Jerry tells the truth.\n(3) Vina says Jerry tells the truth. Since we know from (2) that Jerry tells the truth, if Vina says Jerry tells the truth, then Vine tells the truth.\n(4) Millicent says Vina lies. Since we know from (3) that Vina tells the truth, if Millicent says Vina lies, then Millicent lies.\n(5) Raymond says Millicent lies. Since we know from (4) that Millicent lies, if Raymond says Millicent lies, then Raymond tells the truth.\nNow, the question asks: Does Raymond tell the truth? We know from (5) that Raymond tells the truth. So the answer is Yes.\n\nQ: Question: Kristian lies. Millie says Kristian lies. Maybelle says Millie tells the truth. Fidel says Maybelle lies. Leda says Fidel lies. Does Leda tell the truth?\nA: Let's think step by step.\n(1) Kristian lies. So, we know that Kristian lies.\n(2) Millie says Kristian lies. Since we know from (1) that Kristian lies, if Millie says Kristian lies, then Millie tells the truth.\n(3) Maybelle says Millie tells the truth. Since we know from (2) that Millie tells the truth, if Maybelle says Millie tells the truth, then Maybelle tells the truth.\n(4) Fidel says Maybelle lies. Since we know from (3) that Maybelle tells the truth, if Fidel says Maybelle lies, then Fidel lies.\n(5) Leda says Fidel lies. Since we know from (4) that Fidel lies, if Leda says Fidel lies, then Leda tells the truth.\nNow, the question asks: Does Leda tell the truth? We know from (5) that Leda tells the truth. So the answer is Yes.\n\nQ: Question: Kristian tells the truth. Michaela says Kristian lies. Raymond says Michaela tells the truth. Osvaldo says Raymond tells the truth. Jamey says Osvaldo tells the truth. Does Jamey tell the truth?\nA: Let's think step by step.\n(1) Kristian tells the truth. So, we know that Kristian tells the truth.\n(2) Michaela says Kristian lies. Since we know from (1) that Kristian tells the truth, if Michaela says Kristian lies, then Michaela lies.\n(3) Raymond says Michaela tells the truth. Since we know from (2) that Michaela lies, if Raymond says Michaela tells the truth, then Raymond lies.\n(4) Osvaldo says Raymond tells the truth. Since we know from (3) that Raymond lies, if Osvaldo says Raymond tells the truth, then Osvaldo lies.\n(5) Jamey says Osvaldo tells the truth. Since we know from (4) that Osvaldo lies, if Jamey says Osvaldo tells the truth, then Jamey lies.\nNow, the question asks: Does Jamey tell the truth? We know from (5) that Jamey lies. So the answer is No.\n\nQ: {question}\nA: Let's think step by step.\n",
     "word_sorting":"Q: Sort the following words alphabetically: List: oven costume counterpart\nA: Let's think step by step.\nThe first letter: \"oven\": \"o\" (15). \"costume\": \"c\" (3). \"counterpart\": \"c\" (3). We now have: (3) [\"costume\" ? \"counterpart\"] < (15) \"oven\". Now let's sort this subpart [\"costume\" ? \"counterpart\"] by looking at their second letters.\nThe second letter: \"costume\": \"o\" (15). \"counterpart\": \"o\" (15). We now have: (15) [\"costume\" ? \"counterpart\"]. Now let's sort this subpart [\"costume\" ? \"counterpart\"] by looking at their third letters.\nThe third letter: \"costume\": \"s\" (19). \"counterpart\": \"u\" (21). We now have: (19) \"costume\" < (21) \"counterpart\". Hence, we have [\"costume\" < \"counterpart\"] < \"oven\". So the answer is costume counterpart oven.\n\nQ: Sort the following words alphabetically: List: hypochlorite ponderosa phone credulity\nA: Let's think step by step.\nThe first letter: \"hypochlorite\": \"h\" (8). \"ponderosa\": \"p\" (16). \"phone\": \"p\" (16). \"credulity\": \"c\" (3). We now have: (3) \"credulity\" < (8) \"hypochlorite\" < (16) [\"ponderosa\" ? \"phone\"]. Now let's sort this subpart [\"ponderosa\" ? \"phone\"] by looking at their second letters.\nThe second letter: \"ponderosa\": \"o\" (15). \"phone\": \"h\" (8). We now have: (8) \"phone\" < (15) \"ponderosa\". Hence, we have \"credulity\" < \"hypochlorite\" < [\"phone\" <\"ponderosa\"]. So the answer is credulity hypochlorite phone ponderosa.\n\nQ: Sort the following words alphabetically: List: newt arson parthia seismography mugho aspect census\nA: Let's think step by step.\nThe first letter: \"newt\": \"n\" (14). \"arson\": \"a\" (1). \"parthia\": \"p\" (16). \"seismography\": \"s\" (19). \"mugho\": \"m\" (13). \"aspect\": \"a\" (1). \"census\": \"c\" (3). We now have: (1) [\"arson\" ? \"aspect\"] < (3) \"census\" < (13) \"mugho\" < (14) \"newt\" < (16) \"parthia\" < (19) \"seismography\". Now let's sort this subpart [\"arson\" ? \"aspect\"] by looking at their second letters.\nThe second letter: \"arson\": \"r\" (18). \"aspect\": \"s\" (19). We now have: (18) \"arson\" < (19) \"aspect\". Hence, we have [\"arson\" < \"aspect\"] < \"census\" < \"mugho\" < \"newt\" < \"parthia\" < \"seismography\". So the answer is arson aspect census mugho newt parthia seismography.\n\nQ: {question}\nA: Let's think step by step.\n"
+}
+
+BBH_SKELETON = {
+"word_sorting":
+
+"""
+You’re an organizer responsible for only giving the skeleton (not the full content) for answering the question. Provide the skeleton in a list of points (numbered 1., 2., 3., etc.) to answer the question. Instead of writing a full sentence, each skeleton point should be very short with only 3∼5 words. Generally, the skeleton should have 3∼10 points. Now, please provide only the skeleton for the following question. \n\n\
+Q: Sort the following words alphabetically: List: oven costume counterpart
+Skeleton:
+1. Identify the words.
+2. Determine alphabetical order.
+3. Compare the remaining letters.
+4. Arrange the words accordingly.
+
+Q: Sort the following words alphabetically: List: hypochlorite ponderosa phone credulity
+Skeleton:
+1. List the words.
+2. Split each word into individual letters.
+3. Compare the first letters of each word.
+4. If necessary, move words accordingly.
+5. Repeat for subsequent letters until fully sorted.
+
+Q: Sort the following words alphabetically: List: newt arson parthia seismography mugho aspect census
+Skeleton:
+1. Extract the words
+2. Compare the first letter of the words
+3. Re-arrange the words
+4. Repeat the process for remaining letters.  
+
+Q: {question}
+Skeleton:
+""",
+
+"logical_deduction_three_objects":
+"""
+You’re an organizer responsible for only giving the skeleton (not the full content) for answering the question. Provide the skeleton in a list of points (numbered 1., 2., 3., etc.) to answer the question. Instead of writing a full sentence, each skeleton point should be very short with only 3∼5 words. Generally, the skeleton should have 3∼10 points. Now, please provide only the skeleton for the following question. \n\n\
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Amy, Eli, and Eve. Eve finished above Amy. Eli finished below Amy.
+Options:
+(A) Amy finished last
+(B) Eli finished last
+(C) Eve finished last
+Skeleton:
+1. Identify golfers
+2. Note the order
+3. Determine a single order
+4. Extract who finished last
+
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are three books: a white book, a green book, and an orange book. The green book is to the right of the white book. The orange book is the rightmost.
+Options:
+(A) The white book is the leftmost
+(B) The green book is the leftmost
+(C) The orange book is the leftmost
+Skeleton:
+1. Identify the books
+2. Note the order of books
+3. Determine a single order
+4. Extract the leftmost book 
+
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are three books: a red book, a gray book, and a white book. The white book is to the left of the gray book. The red book is the second from the left.
+Options:
+(A) The red book is the leftmost
+(B) The gray book is the leftmost
+(C) The white book is the leftmost
+Skeleton:
+1. Identify the books
+2. Note the arrangements specified
+3. Determine the final arrangement
+4. Extract the leftmost book
+
+Q: {question}
+Skeleton:
+"""
+}
+
+BBH_REASONING = {
+"word_sorting":
+
+"""
+You’re responsible for continuing the writing of each point in the skeleton to get the overall answer to the question. Write it very shortly in 1∼2 sentence for each point! Utilize information from question and previous point expansions for generating solutions at each step. \n\n\
+Q: Sort the following words alphabetically: List: oven costume counterpart
+Skeleton:
+1. Identify the words.
+2. Determine alphabetical order.
+3. Compare the remaining letters.
+4. Arrange the words accordingly.
+Reasoning:
+1. "oven", "costume", "counterpart"
+2. Start comparing the order of first letter. o (15) > c (3). oven will be present at last alphabetically.  
+3. Comparing ["counterpart", "costume"] until a different letters occur. o (15) = o (15), u (21) > s (19). 
+4. The alphabetical order is costume < counterpart < oven.
+
+Q: Sort the following words alphabetically: List: hypochlorite ponderosa phone credulity
+Skeleton:
+1. List the words.
+2. Split each word into individual letters.
+3. Compare the first letters of each word.
+4. If necessary, move words accordingly.
+5. Repeat for subsequent letters until fully sorted.
+Reasoning:
+1. "hypochlorite", "ponderosa", "phone", "credulity".
+2. ['h','y','p','o','c','h','l','o','r','i','t','e'], ['p','o','n','d','e','r','o','s','a'], ['p','h','o','n','e'], ['c','r','e','d','u','l','i','t','y']
+3. c < h < p
+4. credulity < hypochlorite < ponderosa < phone 
+5. Comparing words with same first letter - [ponderosa, phone]. o > h. ponderosa > phone
+6. credulity < hypochlorite < phone < ponderosa
+
+Q: Sort the following words alphabetically: List: newt arson parthia seismography mugho aspect census
+Skeleton:
+1. Extract the words
+2. Compare the first letter of the words
+3. Re-arrange the words
+4. Repeat the process for remaining letters.  
+Reasoning:
+1. "newt", "arson", "parthia", "seismography", "mugho", "aspect", "census" 
+2. a < c < m < n < p < s
+3. arson < aspect < mugho < newt < parthia < seismography
+4. ["arson", "aspect"] has same initials, comparing their next letters. r < s. Therefore, arson < aspect
+5. arson < aspect < mugho < newt < parthia < seismography
+
+Q: {question}
+Skeleton: {skeleton}
+Reasoning:
+""",
+
+"logical_deduction_three_objects":
+"""
+You’re responsible for continuing the writing of each point in the skeleton to get the overall answer to the question. Write it very shortly in 1∼2 sentence for each point! Utilize information from question and previous point expansions for generating solutions at each step. \n\n\
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Amy, Eli, and Eve. Eve finished above Amy. Eli finished below Amy.
+Options:
+(A) Amy finished last
+(B) Eli finished last
+(C) Eve finished last
+Skeleton:
+1. Identify golfers
+2. Note the order
+3. Determine a single order
+4. Extract who finished last
+Reasoning:
+1. Amy, Eli and Eve
+2. Eve > Amy and Amy > Eli
+3. Eve > Amy > Eli
+4. Eli finished last 
+
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are three books: a white book, a green book, and an orange book. The green book is to the right of the white book. The orange book is the rightmost.
+Options:
+(A) The white book is the leftmost
+(B) The green book is the leftmost
+(C) The orange book is the leftmost
+Skeleton:
+1. Identify the books
+2. Note the order of books
+3. Determine a single order
+4. Extract the leftmost book 
+Reasoning:
+1. White, Green and Orange
+2. White < Green and Orange is the rightmost book
+3. White < Green < Orange
+4. White is the leftmost book 
+
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are three books: a red book, a gray book, and a white book. The white book is to the left of the gray book. The red book is the second from the left.
+Options:
+(A) The red book is the leftmost
+(B) The gray book is the leftmost
+(C) The white book is the leftmost
+Skeleton:
+1. Identify the books
+2. Note the arrangements specified
+3. Determine the final arrangement
+4. Extract the leftmost book
+Reasoning:
+1. Red, Gray and White
+2. White < Gray and Red is the second from the left
+3. White < Red < Gray
+4. White is the leftmost book
+
+Q: {question}
+Skeleton: {skeleton}
+Reasoning:
+"""
+}
+
+BBH_ANSWER = {
+"word_sorting":
+
+"""
+You're responsible for answer extraction from the provided reasoning. \n\n\
+
+Q: Sort the following words alphabetically: List: oven costume counterpart
+Reasoning:
+1. "oven", "costume", "counterpart"
+2. Start comparing the order of first letter. o (15) > c (3). oven will be present at last alphabetically.  
+3. Comparing ["counterpart", "costume"] until a different letters occur. o (15) = o (15), u (21) > s (19). 
+4. The alphabetical order is costume < counterpart < oven.
+Answer:
+So the answer is costume counterpart oven.
+
+Q: Sort the following words alphabetically: List: hypochlorite ponderosa phone credulity
+Reasoning:
+1. "hypochlorite", "ponderosa", "phone", "credulity".
+2. ['h','y','p','o','c','h','l','o','r','i','t','e'], ['p','o','n','d','e','r','o','s','a'], ['p','h','o','n','e'], ['c','r','e','d','u','l','i','t','y']
+3. c < h < p
+4. credulity < hypochlorite < ponderosa < phone 
+5. Comparing words with same first letter - [ponderosa, phone]. o > h. ponderosa > phone
+6. credulity < hypochlorite < phone < ponderosa
+Answer:
+So the answer is credulity hypochlorite phone ponderosa.
+
+Q: Sort the following words alphabetically: List: newt arson parthia seismography mugho aspect census
+Reasoning:
+1. "newt", "arson", "parthia", "seismography", "mugho", "aspect", "census" 
+2. a < c < m < n < p < s
+3. arson < aspect < mugho < newt < parthia < seismography
+4. ["arson", "aspect"] has same initials, comparing their next letters. r < s. Therefore, arson < aspect
+5. arson < aspect < mugho < newt < parthia < seismography
+Answer:
+So the answer is arson aspect mugho newt parthia seismography.
+
+Q: {question}
+Reasoning: {reasoning}
+Answer:
+""",
+
+"logical_deduction_three_objects":
+"""
+You're responsible for answer extraction from the provided reasoning. \n\n\
+
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Amy, Eli, and Eve. Eve finished above Amy. Eli finished below Amy.
+Options:
+(A) Amy finished last
+(B) Eli finished last
+(C) Eve finished last
+Reasoning:
+1. Amy, Eli and Eve
+2. Eve > Amy and Amy > Eli
+3. Eve > Amy > Eli
+4. Eli finished last 
+Answer:
+So the answer is (B).
+
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are three books: a white book, a green book, and an orange book. The green book is to the right of the white book. The orange book is the rightmost.
+Options:
+(A) The white book is the leftmost
+(B) The green book is the leftmost
+(C) The orange book is the leftmost
+Reasoning:
+1. White, Green and Orange
+2. White < Green and Orange is the rightmost book
+3. White < Green < Orange
+4. White is the leftmost book 
+Answer:
+So the answer is (A).
+
+Q: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are three books: a red book, a gray book, and a white book. The white book is to the left of the gray book. The red book is the second from the left.
+Options:
+(A) The red book is the leftmost
+(B) The gray book is the leftmost
+(C) The white book is the leftmost
+Reasoning:
+1. Red, Gray and White
+2. White < Gray and Red is the second from the left
+3. White < Red < Gray
+4. White is the leftmost book
+Answer:
+So the answer is (C).
+
+Q: {question}
+Reasoning: {reasoning}
+Answer:
+"""
 }

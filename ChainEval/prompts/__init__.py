@@ -10,6 +10,8 @@ def get_prompts(config):
         return GSM8K_SKELETON, GSM8K_REASONING, GSM8K_ANSWER
     elif config['prompt_name'] == 'BBH_COT_FEWSHOT':
         return BBH_COT_FEWSHOT[config['task_name']]
+    elif config['prompt_name'] == 'BBH_SOT_FEWSHOT':
+        return BBH_SKELETON[config['task_name']], BBH_REASONING[config['task_name']], BBH_ANSWER[config['task_name']] 
     else:
         raise NotImplementedError
     

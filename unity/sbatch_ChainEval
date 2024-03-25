@@ -53,6 +53,6 @@ cd /work/pi_dhruveshpate_umass_edu/achauhan_umass_edu/SmallLMReasoning/ChainEval
 # python -m eval.eval --config configs/gsm8k/zephyr/eval.yaml --outdir results/zephyr/gsm8k/sot_eighth
 
 
-bash ../eval-scripts/bbh_eval.sh
+bash ../eval-scripts/bbh_eval_sot.sh
 
 echo "Done"
